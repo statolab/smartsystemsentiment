@@ -1,0 +1,83 @@
+<!-- example 4-3 -->
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Statolab{% endblock %}
+{% block page_content %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+h1{
+	font-family:Verdana, Tahoma, sans-serif;
+	font-size:32px;
+}
+h2,h3,h4,h5 {
+	font-family:Verdana, Tahoma, sans-serif;
+	font-size:24px;
+}
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} 
+</style>
+</head>
+<br>
+<br>
+<h1 align="left">Selamat Datang!</h1>
+<br>
+<div class="row" align="centered">
+    <div class="col-md-6">
+      <div class="thumbnail">
+        <a href="/sentiment-analysis" target="_blank">
+          <img src="/static/images/sentiment.jpg" alt="ToolTip" style="width:100%">
+          <div class="caption">
+			<p>Sentiment Analysis</p>
+			<p>Analisis sentimen perusahaan digunakan untuk melakukan klasifikasi antara kritik dan saran yang diberikan oleh pelanggan maupun klien pada perusahaan tersebut.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="thumbnail">
+        <a href="/forecast" target="_blank">
+          <img src="/static/images/forecast.jpg" alt="ToolTip" style="width:100%">
+          <div class="caption">
+			<p>Time Series Forecasting</p>
+			<p>Forecasting dilakukan untuk melakukan prediksi terhadap data harga produk, jumlah pelanggan, dan sebagainya. Jenis data tersebut merupakan data yang dapat berubah terhadap waktu (time series).</p>
+          </div>
+        </a>
+      </div>
+	</div>
+</div>
+</body>
+</html> 
+{% endblock %}

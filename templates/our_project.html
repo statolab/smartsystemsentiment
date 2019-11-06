@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}Our Project{% endblock %}
+
+{% block page_content %}
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* The grid: Three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 50px;
+  text-align: center;
+  font-size: 25px;
+  cursor: pointer;
+  color: white;
+}
+
+.containerTab {
+  padding: 20px;
+  color: white;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Closable button inside the container tab */
+.closebtn {
+  float: right;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+</style>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+/*tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<div style="text-align:center">
+  <h1>Our Upcoming Project</h1>
+  <h2>Check them out!</h2>
+</div>
+
+<!-- Three columns -->
+<div class="row">
+  <div class="column" onclick="openTab('b1');" style="background:black;">
+    Chatbot
+  </div>
+  <div class="column" onclick="openTab('b2');" style="background:blue;">
+    Forecast
+  </div>
+  <div class="column" onclick="openTab('b3');" style="background:darkgrey;">
+    Analysis
+  </div>
+</div>
+
+<!-- Full-width columns: (hidden by default) -->
+<div id="b1" class="containerTab" style="display:none;background:black">
+  <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+  <h4>AI Chatbot</h4>
+  <p style="color: white;">
+  	This is our further development. For now, this feature is under construction.
+  </p>
+</div>
+
+<div id="b2" class="containerTab" style="display:none;background:blue">
+  <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+  <h4>Financial Forecasting System</h4>
+  <p style="color: white;">
+  	This feature provide our business client to forecast anything related to their business.<br>
+  	We provide this feature to help avoid and prevent any bad changes and move further with good changes simultaneously.
+  </p>
+</div>
+
+<div id="b3" class="containerTab" style="display:none;background:grey;">
+  <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+  <h4>Sentiment Analysis</h4>
+  <p style="color: white;">
+  	This feature target is Customer Service and Marketing problem.<br> With all their problem to keep reading the feedback from the potential customer, even the bad things sometimes they can't endure it for a long time.<br> We provide this feature to help them to classify the positive and negative feedback and count it to simplify their work and can decide to make a further act sooner.
+  </p>
+
+<h4>HTML Table</h4>
+
+<table>
+  <tr>
+    <th>Company</th>
+    <th>Contact</th>
+    <th>Country</th>
+  </tr>
+  <tr>
+    <td>Alfreds Futterkiste</td>
+    <td>Maria Anders</td>
+    <td>Germany</td>
+  </tr>
+  <tr>
+    <td>Centro comercial Moctezuma</td>
+    <td>Francisco Chang</td>
+    <td>Mexico</td>
+  </tr>
+  <tr>
+    <td>Ernst Handel</td>
+    <td>Roland Mendel</td>
+    <td>Austria</td>
+  </tr>
+  <tr>
+    <td>Island Trading</td>
+    <td>Helen Bennett</td>
+    <td>UK</td>
+  </tr>
+  <tr>
+    <td>Laughing Bacchus Winecellars</td>
+    <td>Yoshi Tannamuri</td>
+    <td>Canada</td>
+  </tr>
+  <tr>
+    <td>Magazzini Alimentari Riuniti</td>
+    <td>Giovanni Rovelli</td>
+    <td>Italy</td>
+  </tr>
+</table>
+</div>
+
+<script>
+function openTab(tabName) {
+  var i, x;
+  x = document.getElementsByClassName("containerTab");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  document.getElementById(tabName).style.display = "block";
+}
+</script>
+</body>
+
+<div>
+  <h2>Reminders</h2>
+  <p><i>This is an example of how this web server work.<br>
+  This is experimental server. Please reload page if shows blank page.</i></p>
+  <button type="button"
+  onclick="window.location.reload();">
+  Reload Page</button>
+</div>
+
+<h3>Date and Time Display</h3>
+<button type="button"
+onclick="document.getElementById('demo').innerHTML = Date()">
+Display Date and Time.</button>
+<p id="demo" style="color: grey"></p>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}About Us{% endblock %}
+
+{% block page_content %}
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+/* Create two equal columns that sits next to each other */
+.column {
+  flex: 50%;
+  padding: 10px;
+  height: 200px; /* Should be removed. Only for demonstration */
+}
+</style>
+</head>
+<body>
+	<div class="page-header">
+    <h1>About Us</h1>
+</div>
+<div class="row">
+	<div class="column" style="background-color: white;">
+		<h2>Welcome, Newcomers!<br>This is Statolab!</h2>
+	</div>
+	<div class="column" style="background-color: grey;">
+		<p style="color: powderblue;">This page is in under construction right now. We are sorry for your inconveniences.</p>
+		<p style="color: powderblue;">For further information you can check <b>Contact Us</b> menu. Thank you for your attention.</p>
+		<p style="color: powderblue;">In 10 seconds, you will automatically redirected to our homepage.</p>
+	<meta http-equiv="Refresh" content="10; url=/">
+	</div>
+</div>
+</body>
+{% endblock %}

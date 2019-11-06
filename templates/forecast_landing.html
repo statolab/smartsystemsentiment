@@ -1,0 +1,110 @@
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Statolab{% endblock %}
+{% block page_content %}
+
+<!DOCTYPE html>
+<style type="text/css">
+	h1{
+		font-family:Verdana, Tahoma, sans-serif;
+		font-size:32px;
+	}
+	h2,h3,h4,h5 {
+	   font-family:Verdana, Tahoma, sans-serif;
+	   font-size:24px;
+	}
+	h6{
+		font-family:Verdana, Tahoma, sans-serif;
+		color:#0d47a1;
+		font-size:18px;
+	}
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	td{
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
+	th{
+		border: 1px;
+  		color: white;
+		background-color: #1565c0;
+		text-align: center;
+		padding: 8px;
+	}
+
+	tr:nth-child(odd) {
+		background-color: #ddd;
+	}
+
+	/* Create two equal columns that floats next to each other */
+	.column {
+	float: left;
+	width: 350px;
+	padding: 10px;
+	height: 150px; /* Should be removed. Only for demonstration */
+	text-align: center;
+	font-family:Verdana, Tahoma, sans-serif;
+	}
+	/* Clear floats after the columns */
+	.row:after {
+	content: "";
+	display: table;
+	clear: both;
+	}
+	.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	}
+
+</style>
+<h1 align="center">Easy Forecast</h1>
+	<br>
+<script>
+new FroalaEditor('.selector', {
+	// Set the file upload URL.
+	fileUploadURL: '/upload_file'
+})
+</script>
+<script type="text/javascript">
+	var myVar;
+	function toggle_display(output_index){
+		bs = document.getElementById('button_display_' + output_index);
+		bc = document.getElementById('button_collapse_' + output_index);
+		oa = document.getElementById('output_all_' + output_index);
+		ol = document.getElementById('output_less_' + output_index);
+		if(oa.style.display == 'none' || bs.style.display == 'block'){
+			bs.style.display = 'none';
+			ol.style.display = 'none';
+			oa.style.display = 'block';
+			bc.style.display = 'block';
+		}else if(oa.style.display == 'block' || bs.style.display == 'none'){
+			bs.style.display = 'block';
+			ol.style.display = 'block';
+			oa.style.display = 'none';
+			bc.style.display = 'none';
+		}
+	}
+</script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+<body>
+<head lang="en">
+<meta charset="UTF-8">
+<h6 align="center" font-size=14px style="color:#1565c0">Pilih File CSV :</h6>
+<form method=post enctype=multipart/form-data>
+	<div id="buttons" align="center">
+		<input type=file name=file>
+		<input type=submit value=Upload>
+	</div>
+	<script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/plots.js') }}"></script>
+</head>
+</body>
+{% endblock %}

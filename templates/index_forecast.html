@@ -1,0 +1,217 @@
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Statolab{% endblock %}
+{% block page_content %}
+
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+<style type="text/css">
+
+	h1{
+		font-family:Verdana, Tahoma, sans-serif;
+		font-size:32px;
+	}
+	h2,h3,h4{
+	   font-family:Verdana, Tahoma, sans-serif;
+	   font-size:20px;
+	}
+	h5{
+		font-family:Verdana, Tahoma, sans-serif;
+	   font-size:16px;
+	}
+	h6{
+		font-family:Verdana, Tahoma, sans-serif;
+		color:#0d47a1;
+		font-size:18px;
+	}
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	td{
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
+	th{
+		border: 1px;
+  		color: white;
+		background-color: #1565c0;
+		text-align: center;
+		padding: 8px;
+	}
+
+	tr:nth-child(odd) {
+		background-color: #ddd;
+	}
+
+	/* Create two equal columns that floats next to each other */
+	.column {
+	float: left;
+	width: 350px;
+	padding: 10px;
+	height: 150px; /* Should be removed. Only for demonstration */
+	text-align: center;
+	font-family:Verdana, Tahoma, sans-serif;
+	}
+	/* Clear floats after the columns */
+	.row:after {
+	content: "";
+	display: table;
+	clear: both;
+	}
+	.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	}
+	.no-js #loader { display: none;  }
+	.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+	.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('/static/images/Ellipsis-2.8s-200px.gif') center no-repeat #fff;
+	}
+</style>
+<script>
+	$(window).load(function() {
+		// Animate loader off screen
+		$(".se-pre-con").fadeOut("slow");;
+	});
+</script>
+<body>
+<div class="se-pre-con"></div>
+<head lang="en">
+<meta charset="UTF-8">
+<h1 align="center">Easy Forecast</h1>
+	<br>
+<script>
+new FroalaEditor('.selector', {
+	// Set the file upload URL.
+	fileUploadURL: '/upload_file'
+})
+</script>
+<script type="text/javascript">
+	var myVar;
+	function toggle_display(output_index){
+		bs = document.getElementById('button_display_' + output_index);
+		bc = document.getElementById('button_collapse_' + output_index);
+		oa = document.getElementById('output_all_' + output_index);
+		ol = document.getElementById('output_less_' + output_index);
+		if(oa.style.display == 'none' || bs.style.display == 'block'){
+			bs.style.display = 'none';
+			ol.style.display = 'none';
+			oa.style.display = 'block';
+			bc.style.display = 'block';
+		}else if(oa.style.display == 'block' || bs.style.display == 'none'){
+			bs.style.display = 'block';
+			ol.style.display = 'block';
+			oa.style.display = 'none';
+			bc.style.display = 'none';
+		}
+	}
+</script>
+<script src="static/js/plotly-latest.min.js"></script>
+<script src="static/js/d3.min.js"></script>
+<h6 align="center" font-size=14px style="color:#1565c0">Pilih File CSV :</h6>
+<form method=post enctype=multipart/form-data>
+	<div id="buttons" align="center">
+		<input type=file name=file>
+		<input type=submit value=Upload>
+	</div>
+<title>Forecasting</title>
+<br>
+<div class="col-md-6">
+<div>
+	<h2 style="color:#1565c0">Rangkuman Data</h2>
+		<table>
+			<tr>
+				<th></th>
+				<th>Keterangan Data</th>
+			</tr>
+			<tr>
+				<td>Jumlah Data</td>
+				<td>{{output_sum['count']}}</td>
+			</tr>
+			<tr>
+				<td>Nilai Maksimum</td>
+				<td>{{output_sum['max']}}</td>
+			</tr>
+			<tr>
+				<td>Nilai Minimum</td>
+				<td>{{output_sum['min']}}</td>
+			</tr>
+			<tr>
+				<td>Rata-rata</td>
+				<td>{{output_sum['mean']}}</td>
+			</tr>
+			<tr>
+				<td>Standar Deviasi</td>
+				<td>{{output_sum['std']}}</td>
+			</tr>
+		</table>
+	</div>	
+	<h2 style="color:#1565c0">Grafik Data</h2>
+		<div class="chart" id="linegr1" style="width: 1000px;">
+			<script>
+				var graphsdata = {{graphJSONdata | safe}};
+				Plotly.plot('linegr1',graphsdata,{});
+			</script>
+		</div>
+	<br>
+<h2 style="color:#1565c0">Parameter, Parameter Musiman, dan Nilai AIC Terbaik</h2>
+	<div>
+		<table>
+				<tr>
+					<th>Parameter (p, d, q)</th>
+					<th>Parameter Musiman (P, D, Q, m)</th>
+					<th>Nilai AIC</th>
+				</tr>
+				{% for f_r in final_result %}
+					<tr>
+						{% for f_r_1 in f_r %}
+							<td>{{f_r_1}}</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	<br>
+	<h2 style="color:#1565c0">Hasil One-Step Forecast</h2>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-3">
+				<label> Choose the plot type....</label>
+				<select class="form-control" id ='first_cat'>
+					<option value="SARIMAX">SARIMAX</option>
+			</select>
+			</div>
+		</div>
+	<br>
+	<div class="col-md-6">
+		<h5><div>AIC Value			: {{bestaic}}</div></h5>
+		<h5><div>Parameter 			: {{bestparam}}</div></h5>
+		<h5><div>Seasonal Parameter : {{bestparamS}}</div></h5>
+		<div class="chart" id="linegr2" style="width: 1000px;">
+			<script>
+				var graphs = {{graphJSONfrc | safe}};
+				Plotly.plot('linegr2',graphs,{});
+			</script>
+		</div>
+	</div>
+
+</div>
+</div>
+	<script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/plots.js') }}"></script>
+</head>
+</body>
+{% endblock %}

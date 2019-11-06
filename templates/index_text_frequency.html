@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Statolab{% endblock %}
+
+{% block page_content %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Grafik Flask</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-3">
+            <h2>Jumlah Kemunculan Kata dan Penggalan Kalimat Pada Teks Sentimen (20 terbanyak)</h2>
+            <br>
+            <select class="form-control" id ='first_cat'>
+                <option value="Top 20 Words">Top 20 Words</option>
+                <option value="Top 20 Bigrams">Top 20 Bigrams</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <div class="col-md-6">
+            <div class="chart" id="bargraph" style="width: 800px;">
+                <script type="text/javascript">
+                    var graphs = {{graphJSON | safe}};
+                    Plotly.plot('bargraph',graphs,{});
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plots.js') }}"></script>
+</body>
+</html>
+{% endblock %}
